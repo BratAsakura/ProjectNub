@@ -240,7 +240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4809deb9d4a25a4eb98ff8de54abd35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PetTest
-  _valueTesting: 0
+  _valueTesting: 100
 --- !u!4 &1804319440
 Transform:
   m_ObjectHideFlags: 0
