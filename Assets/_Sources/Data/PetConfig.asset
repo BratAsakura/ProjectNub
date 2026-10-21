@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 020f304eac4df464bb6b69f19e6479b6, type: 3}
   m_Name: PetConfig
   m_EditorClassIdentifier: Assembly-CSharp::PetConfig
-  _maxValue: 0
+  _maxValue: 100
   _minValue: 0
-  _decayRatePerSecond: 0.00694
+  _satietyDecayRate: 0.00694
+  _healthDecayRate: 0
+  _happinessDecayRate: 0.00231
+  _cheerfulnessDecayRate: 0.00347
+  _offlineMultiplier: 0.3
