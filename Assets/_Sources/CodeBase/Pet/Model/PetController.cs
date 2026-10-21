@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PetController : MonoBehaviour
@@ -15,5 +16,23 @@ public class PetController : MonoBehaviour
     private void Update()
     {
         _pet.Tick(Time.deltaTime * _timeScale);
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            if (_pet.State == PetState.Awake)
+                ToggleSleep();
+            else if (_pet.State == PetState.Sleeping)
+                ToggleAwake();
+        }
+    }
+
+    private void ToggleSleep()
+    {
+        _pet.ChangeState(PetState.Sleeping);
+    }
+
+    private void ToggleAwake()
+    {
+        _pet.ChangeState(PetState.Awake);
     }
 }
