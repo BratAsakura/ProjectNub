@@ -25,10 +25,24 @@ public class Pet
 
     public void Tick(float deltaTime)
     {
-        _satiety.ReduceValue(deltaTime * _config.SatietyDecayRate);
-        _health.ReduceValue(deltaTime * _config.HealthDecayRate);
-        _happiness.ReduceValue(deltaTime * _config.HappinessDecayRate);
-        _cheerfulness.ReduceValue(deltaTime * _config.CheerfulnessDecayRate);
+        if(_state == PetState.Awake)
+        {
+            _satiety.ReduceValue(deltaTime * _config.SatietyDecayRate);
+            _health.ReduceValue(deltaTime * _config.HealthDecayRate);
+            _happiness.ReduceValue(deltaTime * _config.HappinessDecayRate);
+            _cheerfulness.ReduceValue(deltaTime * _config.CheerfulnessDecayRate);
+        }
+        else if (_state == PetState.Sleeping)
+        {
+            _satiety.ReduceValue(deltaTime * _config.SatietyDecayRate * _config.SleepDecayMultiplier);
+            _health.ReduceValue(deltaTime * _config.HealthDecayRate * _config.SleepDecayMultiplier);
+            _happiness.ReduceValue(deltaTime * _config.HappinessDecayRate * _config.SleepDecayMultiplier);
+            _cheerfulness.AddValue(deltaTime * _config.SleepCheerfulnessGain);
+        }
+        else
+        {
+            return;
+        }
     }
 
     public void ChangeState(PetState state)

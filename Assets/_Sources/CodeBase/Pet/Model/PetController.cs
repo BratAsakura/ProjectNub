@@ -24,6 +24,10 @@ public class PetController : MonoBehaviour
             else if (_pet.State == PetState.Sleeping)
                 ToggleAwake();
         }
+        else if (Input.GetKeyDown(KeyCode.D))
+        {
+            ToggleDead();
+        }
     }
 
     private void ToggleSleep()
@@ -34,5 +38,10 @@ public class PetController : MonoBehaviour
     private void ToggleAwake()
     {
         _pet.ChangeState(PetState.Awake);
+    }
+
+    private void ToggleDead()
+    {
+        _pet.ChangeState(PetState.Dead);
     }
 }
