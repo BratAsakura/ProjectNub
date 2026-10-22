@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PetConfig", menuName = "Tamagotchi/Pet Config")]
@@ -13,6 +14,9 @@ public class PetConfig : ScriptableObject
     [SerializeField] private float _cheerfulnessDecayRate = 0.00347f; // 8 Часов
     [Header("Оффлайн")]
     [SerializeField] private float _offlineMultiplier = 0.3f;
+    [Header("Сон")]
+    [SerializeField] private float _sleepDecayMultiplier = 0.2f;
+    [SerializeField] private float _sleepCheerfulnessGain = 0.01388f;
 
     public float MaxValue => _maxValue;
     public float MinValue => _minValue;
@@ -21,4 +25,6 @@ public class PetConfig : ScriptableObject
     public float HappinessDecayRate => _happinessDecayRate;
     public float CheerfulnessDecayRate => _cheerfulnessDecayRate;
     public float OfflineMultiplier => _offlineMultiplier;
+    public float SleepDecayMultiplier => _sleepDecayMultiplier;
+    public float SleepCheerfulnessGain => _sleepCheerfulnessGain;
 }

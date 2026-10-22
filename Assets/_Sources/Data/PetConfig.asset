@@ -19,3 +19,5 @@ MonoBehaviour:
   _happinessDecayRate: 0.00231
   _cheerfulnessDecayRate: 0.00347
   _offlineMultiplier: 0.3
+  _sleepDecayMultiplier: 0.2
+  _sleepCheerfulnessGain: 0.01388
