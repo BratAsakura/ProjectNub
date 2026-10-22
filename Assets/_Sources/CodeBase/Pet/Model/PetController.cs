@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class PetController : MonoBehaviour
@@ -19,29 +18,29 @@ public class PetController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.S))
         {
-            if (_pet.State == PetState.Awake)
-                ToggleSleep();
-            else if (_pet.State == PetState.Sleeping)
-                ToggleAwake();
+            if (_pet.TrySleep())
+                Debug.Log("Уснул.");
+            else if (_pet.TryWakeUp())
+                Debug.Log("Проснулся.");
         }
         else if (Input.GetKeyDown(KeyCode.D))
         {
             ToggleDead();
         }
+        else if (Input.GetKeyDown(KeyCode.F))
+        {
+            _pet.TryFeed();
+        }
+        else if (Input.GetKeyDown(KeyCode.W))
+        {
+            _pet.TryWalk();
+        }
+        else if (Input.GetKeyDown(KeyCode.H))
+        {
+            _pet.TryHeal();
+        }
     }
 
-    private void ToggleSleep()
-    {
-        _pet.ChangeState(PetState.Sleeping);
-    }
-
-    private void ToggleAwake()
-    {
-        _pet.ChangeState(PetState.Awake);
-    }
-
-    private void ToggleDead()
-    {
+    private void ToggleDead() =>
         _pet.ChangeState(PetState.Dead);
-    }
 }

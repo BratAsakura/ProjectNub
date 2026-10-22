@@ -31,6 +31,11 @@ public class Pet
             _health.ReduceValue(deltaTime * _config.HealthDecayRate);
             _happiness.ReduceValue(deltaTime * _config.HappinessDecayRate);
             _cheerfulness.ReduceValue(deltaTime * _config.CheerfulnessDecayRate);
+
+            if (_satiety.CurrentValue <= 0 || _cheerfulness.CurrentValue <= 0)
+            {
+                _health.ReduceValue(deltaTime * _config.CriticalHealthDecayRate);
+            }
         }
         else if (_state == PetState.Sleeping)
         {
@@ -38,10 +43,20 @@ public class Pet
             _health.ReduceValue(deltaTime * _config.HealthDecayRate * _config.SleepDecayMultiplier);
             _happiness.ReduceValue(deltaTime * _config.HappinessDecayRate * _config.SleepDecayMultiplier);
             _cheerfulness.AddValue(deltaTime * _config.SleepCheerfulnessGain);
+
+            if (_satiety.CurrentValue <= 0 || _cheerfulness.CurrentValue <= 0)
+            {
+                _health.ReduceValue(deltaTime * _config.CriticalHealthDecayRate);
+            }
         }
         else
         {
             return;
+        }
+
+        if (_health.CurrentValue <= 0)
+        {
+            ChangeState(PetState.Dead);
         }
     }
 
@@ -49,4 +64,63 @@ public class Pet
     {
         _state = state;
     }
+
+    public bool TryFeed()
+    {
+        if (IsActive())
+        {
+            _satiety.AddValue(_config.FeetAmount);
+            return true;
+        }
+
+        return false;
+    }
+
+    public bool TryHeal()
+    {
+        if (IsActive())
+        {
+            _health.AddValue(_config.HealAmount);
+            return true;
+        }
+
+        return false;
+    }
+
+    public bool TryWalk()
+    {
+        if (IsActive())
+        {
+            _happiness.AddValue(_config.WalkHappinessAmount);
+            _cheerfulness.ReduceValue(_config.WalkCheerfulnessCost);
+            return true;
+        }
+
+        return false;
+    }
+
+    public bool TrySleep()
+    {
+        if (IsActive())
+        {
+            ChangeState(PetState.Sleeping);
+            return true;
+        }
+
+        return false;
+    }
+
+    public bool TryWakeUp()
+    {
+        if (_state != PetState.Dead && _state == PetState.Sleeping)
+        {
+            ChangeState(PetState.Awake);
+            return true;
+        }
+
+        return false;
+    }
+
+    private bool IsActive() => 
+        _state != PetState.Dead && _state != PetState.Sleeping;
 }
