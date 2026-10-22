@@ -242,6 +242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PetTest
   _petController: {fileID: 1804319441}
+  _timeDebug: 1
 --- !u!4 &1804319440
 Transform:
   m_ObjectHideFlags: 0
