@@ -15,9 +15,14 @@ MonoBehaviour:
   _maxValue: 100
   _minValue: 0
   _satietyDecayRate: 0.00694
-  _healthDecayRate: 0
+  _healthDecayRate: 0.00115
   _happinessDecayRate: 0.00231
   _cheerfulnessDecayRate: 0.00347
   _offlineMultiplier: 0.3
   _sleepDecayMultiplier: 0.2
   _sleepCheerfulnessGain: 0.01388
+  _criticalHealthDecayRate: 0.05
+  _feetAmount: 30
+  _healAmount: 40
+  _walkHappinessAmount: 20
+  _walkCheerfulnessCost: 20
