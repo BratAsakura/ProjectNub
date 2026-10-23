@@ -73,7 +73,7 @@ public class PetController : MonoBehaviour
 
     public void SaveGame()
     {
-        string timeNow = System.DateTime.UtcNow.ToString();
+        string timeNow = DateTime.UtcNow.ToString();
         PetSaveData data = _pet.GetSaveData(timeNow);
         string json = JsonUtility.ToJson(data);
         System.IO.File.WriteAllText(Application.persistentDataPath + "/petSave.json", json);
