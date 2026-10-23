@@ -52,6 +52,11 @@ public class PetController : MonoBehaviour
         {
             _pet.TryHeal();
         }
+        else if (Input.GetKeyDown(KeyCode.R))
+        {
+            CreateNewPet();
+            Debug.Log("Новый питомец создан");
+        }
     }
 
     private void OnApplicationQuit()
@@ -65,6 +70,18 @@ public class PetController : MonoBehaviour
         PetSaveData data = _pet.GetSaveData(timeNow);
         string json = JsonUtility.ToJson(data);
         System.IO.File.WriteAllText(Application.persistentDataPath + "/petSave.json", json);
+    }
+
+    public void CreateNewPet()
+    {
+        string path = Application.persistentDataPath + "/petSave.json";
+        
+        if (System.IO.File.Exists(path))
+        {
+            System.IO.File.Delete(path);
+        }
+
+        _pet = new(_config.MaxValue, _config.MaxValue, _config.MaxValue, _config.MaxValue, _config);
     }
 
     private void ToggleDead() =>
