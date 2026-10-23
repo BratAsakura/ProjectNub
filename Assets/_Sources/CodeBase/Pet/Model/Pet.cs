@@ -15,12 +15,12 @@ public class Pet
 
     public Pet(float satiety, float health, float happiness, float cheerfulness, PetConfig config, PetState state = PetState.Awake)
     {
-        _satiety = new(satiety);
-        _health = new(health);
-        _happiness = new(happiness);
-        _cheerfulness = new(cheerfulness);
         _config = config;
         _state = state;
+        _satiety = new(satiety, _config.MaxValue);
+        _health = new(health, _config.MaxValue);
+        _happiness = new(happiness, _config.MaxValue);
+        _cheerfulness = new(cheerfulness, _config.MaxValue);
     }
 
     public void Tick(float deltaTime)
@@ -69,7 +69,7 @@ public class Pet
     {
         if (IsActive())
         {
-            _satiety.AddValue(_config.FeetAmount);
+            _satiety.AddValue(_config.FeedAmount);
             return true;
         }
 
@@ -123,4 +123,25 @@ public class Pet
 
     private bool IsActive() => 
         _state != PetState.Dead && _state != PetState.Sleeping;
+
+    public PetSaveData GetSaveData(string lastExitTime)
+    {
+        return new PetSaveData(
+            _satiety.CurrentValue,
+            _health.CurrentValue,
+            _happiness.CurrentValue,
+            _cheerfulness.CurrentValue,
+            _state,
+            lastExitTime
+        );
+    }
+
+    public void LoadData(PetSaveData data)
+    {
+        _satiety.SetValue(data.Satiety);
+        _health.SetValue(data.Health);
+        _happiness.SetValue(data.Happiness);
+        _cheerfulness.SetValue(data.Cheerfulness);
+        _state = data.State;
+    }
 }
