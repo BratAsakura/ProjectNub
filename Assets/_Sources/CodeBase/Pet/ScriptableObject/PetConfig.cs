@@ -19,7 +19,7 @@ public class PetConfig : ScriptableObject
     [Header("Урон")]
     [SerializeField] private float _criticalHealthDecayRate = 0.05f;
     [Header("Действия")]
-    [SerializeField] private float _feetAmount;
+    [SerializeField] private float _feedAmount;
     [SerializeField] private float _healAmount;
     [SerializeField] private float _walkHappinessAmount;
     [SerializeField] private float _walkCheerfulnessCost;
@@ -34,7 +34,7 @@ public class PetConfig : ScriptableObject
     public float SleepDecayMultiplier => _sleepDecayMultiplier;
     public float SleepCheerfulnessGain => _sleepCheerfulnessGain;
     public float CriticalHealthDecayRate => _criticalHealthDecayRate;
-    public float FeetAmount => _feetAmount;
+    public float FeedAmount => _feedAmount;
     public float HealAmount => _healAmount;
     public float WalkHappinessAmount => _walkHappinessAmount;
     public float WalkCheerfulnessCost => _walkCheerfulnessCost;
