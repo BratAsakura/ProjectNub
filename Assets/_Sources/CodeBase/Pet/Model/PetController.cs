@@ -54,8 +54,15 @@ public class PetController : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.R))
         {
-            CreateNewPet();
-            Debug.Log("Новый питомец создан");
+            if (_pet.State == PetState.Dead)
+            {
+                CreateNewPet();
+                Debug.Log("Новый питомец создан");
+            }
+            else
+            {
+                Debug.Log("Питомец всё ещё жив. Создание не прошло.");
+            }
         }
     }
 
