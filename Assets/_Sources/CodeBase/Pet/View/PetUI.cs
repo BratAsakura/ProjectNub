@@ -12,6 +12,9 @@ public class PetUI : MonoBehaviour
     [SerializeField] private Button _healButton;
     [SerializeField] private Button _walkButton;
     [SerializeField] private Button _sleepButton;
+    [SerializeField] private Button _createPetButton;
+    [SerializeField] private GameObject _deadScene;
+    [SerializeField] private GameObject _actionButtons;
 
     private void Awake()
     {
@@ -41,6 +44,15 @@ public class PetUI : MonoBehaviour
 
         if (_sleepButton == null)
             Debug.LogError("Не найдена кнопка: Сон/Пробуждение");
+
+        if (_createPetButton == null)
+            Debug.LogError("Не найдена кнопка: Создание питомца.");
+
+        if (_deadScene == null)
+            Debug.LogError("Не найдена сцена смерти.");
+
+        if (_actionButtons == null)
+            Debug.LogError("Не найдены кнопки действий.");
     }
 
     public void Start()
@@ -49,6 +61,16 @@ public class PetUI : MonoBehaviour
         _healthBar.value = _petController.Pet.Health.CurrentValue;
         _happinessBar.value = _petController.Pet.Happiness.CurrentValue;
         _cheerfulnessBar.value = _petController.Pet.Cheerfulness.CurrentValue;
+        
+        if (_petController.Pet.State != PetState.Dead)
+            _deadScene.SetActive(false);
+        else
+            _deadScene.SetActive(true);
+
+        if (_petController.Pet.State != PetState.Dead)
+            _actionButtons.SetActive(true);
+        else
+            _actionButtons.SetActive(false);
     }
 
     private void OnEnable()
@@ -57,6 +79,14 @@ public class PetUI : MonoBehaviour
         _healButton.onClick.AddListener(OnHealClicked);
         _walkButton.onClick.AddListener(OnWalkClicked);
         _sleepButton.onClick.AddListener(OnSleepClicked);
+        _createPetButton.onClick.AddListener(OnCreateClicked);
+    }
+
+    private void OnCreateClicked()
+    {
+        _petController.CreateNewPet();
+        _deadScene.SetActive(false);
+        _actionButtons.SetActive(true);
     }
 
     private void OnSleepClicked()
@@ -85,6 +115,7 @@ public class PetUI : MonoBehaviour
         _healButton.onClick.RemoveListener(OnHealClicked);
         _walkButton.onClick.RemoveListener(OnWalkClicked);
         _sleepButton.onClick.RemoveListener(OnSleepClicked);
+        _createPetButton.onClick.RemoveListener(OnCreateClicked);
     }
 
     private void Update()
@@ -93,5 +124,11 @@ public class PetUI : MonoBehaviour
         _healthBar.value = _petController.Pet.Health.CurrentValue;
         _happinessBar.value = _petController.Pet.Happiness.CurrentValue;
         _cheerfulnessBar.value = _petController.Pet.Cheerfulness.CurrentValue;
+
+        if (_petController.Pet.State == PetState.Dead)
+        {
+            _deadScene.SetActive(true);
+            _actionButtons.SetActive(false);
+        }
     }
 }
