@@ -91,6 +91,24 @@ public class PetController : MonoBehaviour
         _pet = new(_config.MaxValue, _config.MaxValue, _config.MaxValue, _config.MaxValue, _config);
     }
 
+    public void Feed() => 
+        _pet.TryFeed();
+
+    public void Heal() => 
+        _pet.TryHeal();
+
+    public void Walk() => 
+        _pet.TryWalk();
+
+    public void SleepAndWakeUp()
+    {
+        if (_pet.State == PetState.Awake)
+            _pet.TrySleep();
+        else if (_pet.State == PetState.Sleeping)
+            _pet.TryWakeUp();
+    }
+
     private void ToggleDead() =>
         _pet.ChangeState(PetState.Dead);
+
 }
