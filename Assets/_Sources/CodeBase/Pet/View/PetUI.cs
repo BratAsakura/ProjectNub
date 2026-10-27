@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PetUI : MonoBehaviour
@@ -15,6 +16,7 @@ public class PetUI : MonoBehaviour
     [SerializeField] private Button _createPetButton;
     [SerializeField] private GameObject _deadScene;
     [SerializeField] private GameObject _actionButtons;
+    [SerializeField] private Button _backButton;
 
     private void Awake()
     {
@@ -53,6 +55,9 @@ public class PetUI : MonoBehaviour
 
         if (_actionButtons == null)
             Debug.LogError("Не найдены кнопки действий.");
+
+        if (_backButton == null)
+            Debug.LogError("Не найдены кнопки Назад.");
     }
 
     public void Start()
@@ -80,6 +85,13 @@ public class PetUI : MonoBehaviour
         _walkButton.onClick.AddListener(OnWalkClicked);
         _sleepButton.onClick.AddListener(OnSleepClicked);
         _createPetButton.onClick.AddListener(OnCreateClicked);
+        _backButton.onClick.AddListener(OnBackClicked);
+    }
+
+    private void OnBackClicked()
+    {
+        _petController.SaveGame();
+        SceneManager.LoadScene("MainMenu");
     }
 
     private void OnCreateClicked()
@@ -116,6 +128,7 @@ public class PetUI : MonoBehaviour
         _walkButton.onClick.RemoveListener(OnWalkClicked);
         _sleepButton.onClick.RemoveListener(OnSleepClicked);
         _createPetButton.onClick.RemoveListener(OnCreateClicked);
+        _backButton.onClick.RemoveListener(OnBackClicked);
     }
 
     private void Update()
