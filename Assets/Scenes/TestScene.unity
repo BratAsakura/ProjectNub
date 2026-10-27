@@ -389,7 +389,7 @@ MonoBehaviour:
   _createPetButton: {fileID: 642927461}
   _deadScene: {fileID: 2080327513}
   _actionButtons: {fileID: 1851002112}
-  _backButton: {fileID: 0}
+  _backButton: {fileID: 1283364038}
 --- !u!1 &313791888
 GameObject:
   m_ObjectHideFlags: 0
