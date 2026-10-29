@@ -5,6 +5,9 @@ public class PetController : MonoBehaviour
 {
     [SerializeField] private PetConfig _config;
     [SerializeField] private float _timeScale = 1f;
+    [SerializeField] private Animator _animatorPlayer;
+    [SerializeField] private float _animSpeed = 1f;
+
     private Pet _pet;
     public Pet Pet => _pet;
 
@@ -23,11 +26,33 @@ public class PetController : MonoBehaviour
             float timeNow = (float)(realTime - savedTime).TotalSeconds;
             _pet.Tick(timeNow * _config.OfflineMultiplier);
         }
+
+        if (_animatorPlayer == null)
+            Debug.LogError("Не найден Аниматор.");
+
+        _animatorPlayer.speed = _animSpeed;
+
+        if (_pet.State == PetState.Sleeping)
+        {
+            _animatorPlayer.Play("Sleep", 0, 0f);
+            _animatorPlayer.SetBool("IsSleeping", true);
+            _animatorPlayer.SetBool("IsWakeUp", false);
+        }
+        else
+        {
+            _animatorPlayer.SetBool("IsSleeping", false);
+            _animatorPlayer.SetBool("IsWakeUp", true);
+        }
     }
 
     private void Update()
     {
         _pet.Tick(Time.deltaTime * _timeScale);
+
+        if (_pet.Cheerfulness.CurrentValue == _config.MaxValue && _pet.State == PetState.Sleeping)
+        {
+            SleepAndWakeUp();
+        }
     }
 
     private void OnApplicationQuit()
@@ -67,8 +92,16 @@ public class PetController : MonoBehaviour
     public void SleepAndWakeUp()
     {
         if (_pet.State == PetState.Awake)
+        {
+            _animatorPlayer.SetBool("IsSleeping", true);
+            _animatorPlayer.SetBool("IsWakeUp", false);
             _pet.TrySleep();
+        }
         else if (_pet.State == PetState.Sleeping)
+        {
+            _animatorPlayer.SetBool("IsSleeping", false);
+            _animatorPlayer.SetBool("IsWakeUp", true);
             _pet.TryWakeUp();
+        }
     }
 }
