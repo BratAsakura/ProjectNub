@@ -91,9 +91,12 @@ public class Pet
     {
         if (IsActive())
         {
-            _happiness.AddValue(_config.WalkHappinessAmount);
-            _cheerfulness.ReduceValue(_config.WalkCheerfulnessCost);
-            return true;
+            if (_cheerfulness.CurrentValue >= _config.WalkHappinessAmount)
+            {
+                _happiness.AddValue(_config.WalkHappinessAmount);
+                _cheerfulness.ReduceValue(_config.WalkCheerfulnessCost);
+                return true;
+            }
         }
 
         return false;

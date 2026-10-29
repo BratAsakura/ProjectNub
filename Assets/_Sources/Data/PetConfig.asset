@@ -21,7 +21,7 @@ MonoBehaviour:
   _offlineMultiplier: 0.3
   _sleepDecayMultiplier: 0.2
   _sleepCheerfulnessGain: 0.01388
-  _criticalHealthDecayRate: 0.05
+  _criticalHealthDecayRate: 0.0015
   _feedAmount: 50
   _healAmount: 40
   _walkHappinessAmount: 20
