@@ -90,6 +90,7 @@ public class PetUI : MonoBehaviour
 
     private void OnBackClicked()
     {
+        AudioManager.Instance.PlayClick();
         _petController.SaveGame();
         SceneManager.LoadScene("MainMenu");
     }
@@ -103,21 +104,25 @@ public class PetUI : MonoBehaviour
 
     private void OnSleepClicked()
     {
+        AudioManager.Instance.PlayClick();
         _petController.SleepAndWakeUp();
     }
 
     private void OnWalkClicked()
     {
+        AudioManager.Instance.PlayClick();
         _petController.Walk();
     }
 
     private void OnHealClicked()
     {
+        AudioManager.Instance.PlayClick();
         _petController.Heal();
     }
 
     private void OnFeedClicked()
     {
+        AudioManager.Instance.PlayClick();
         _petController.Feed();
     }
 
